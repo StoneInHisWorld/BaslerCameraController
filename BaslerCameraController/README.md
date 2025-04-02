@@ -37,4 +37,5 @@
 
 ## 注意事项
 - 可以自定义`FrameEventHandler`和`CameraConfigHandler`来指定相机拍摄照片后以及相机被打开时执行的操作 
-- 有关相机配置和高级功能的更多信息，请参考[官方示例和编程文档](https://docs.baslerweb.com/pylonapi/cpp/)
+- 本项目只支持相机电信号触发的拍照的情形，有关触发配置的更改，请参见`PylonCamera::setTriggerMode()`。触发电路信号的连接，请参照相机说明书。
+- 相机其他调用模式，请参考[官方示例和编程文档](https://docs.baslerweb.com/pylonapi/cpp/)
