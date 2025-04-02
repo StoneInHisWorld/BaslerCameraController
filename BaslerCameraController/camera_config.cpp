@@ -40,11 +40,6 @@ void map_async(const std::vector<T>& vec, Func process_func, const size_t num_th
         threads.at(i).join();
         displayProgressBar(i + 1, num_threads);
     }
-    //for (auto& t : threads) 
-    //{
-    //    t.join();
-
-    //}
 }
 
 PylonCamera::PylonCamera()
@@ -226,25 +221,9 @@ void FrameEventHandler::OnImagesSkipped(Pylon::CInstantCamera& camera, size_t co
 // 图片获取事件处理函数
 void FrameEventHandler::OnImageGrabbed(Pylon::CInstantCamera& camera, const Pylon::CGrabResultPtr& ptrGrabResult)
 {
-    //Pylon::CGrabResultPtr ptr(ptrGrabResult);
 	// 成功获取图像
 	if (ptrGrabResult->GrabSucceeded())
 	{
-        //std::cout << "SizeX: " << ptrGrabResult->GetWidth() << std::endl;
-        //std::cout << "SizeY: " << ptrGrabResult->GetHeight() << std::endl;
-
-        // string filename = save_root + to_string(frame_counter++) + filename_perfix;
-        // saveImage(filename, ptrGrabResult->GetBuffer(), ptrGrabResult->GetWidth(), ptrGrabResult->GetHeight(), CV_8UC1);
-
-		//uint32_t width = ptrGrabResult->GetWidth();
-		//uint32_t height = ptrGrabResult->GetHeight();
-
-        // The pylon grab result smart pointer classes provide a cast operator to the IImage
-        // interface. This makes it possible to pass a grab result directly to the
-        // function that saves an image to disk.
-        //string filename = "./fruits/" + to_string(frame_counter++) + ".png";
-        //CImagePersistence::Save(ImageFileFormat_Png, filename.c_str(), ptrGrabResult);
-        
 		cv::Mat image = Mat{ (int)ptrGrabResult->GetHeight(), (int)ptrGrabResult->GetWidth(), CV_8UC1, (uint8_t *)ptrGrabResult->GetBuffer() };
         this->ptrQueue.push({ FRAME_SUCCESSFUL, image.clone(), ""});
 	}
@@ -252,7 +231,6 @@ void FrameEventHandler::OnImageGrabbed(Pylon::CInstantCamera& camera, const Pylo
 	{
 		string exception_desc = "Error: " + std::to_string(ptrGrabResult->GetErrorCode()) + " " + String(ptrGrabResult->GetErrorDescription());
         this->ptrQueue.push({ FRAME_ERROR, Mat{}, exception_desc });
-		//cerr << exception_desc << endl;
 	}
 }
 
@@ -489,14 +467,6 @@ void FrameEventHandler::m_saveImage()
     std::mutex p_mutex;
     size_t progress = 0;
     size_t total = rets.size();
-    //auto save_impl = [&p_mutex, &progress, &total](const vector<pair<string, cv::Mat>>& data) {
-    //    for (auto& d : data) 
-    //    {
-    //        cv_func::saveImage(d.first, d.second);
-    //        std::lock_guard<std::mutex> lock(p_mutex);
-    //        displayProgressBar(++progress, total);
-    //    }
-    //};
     auto save_impl = [](const vector<pair<string, cv::Mat>>& data) {
         for (auto& d : data) cv_func::saveImage(d.first, d.second);
     };
@@ -507,18 +477,10 @@ void FrameEventHandler::clear()
 {
         std::unique_lock<std::mutex> lock(queueMutex);
         this->stopThread = true;
-        //std::condition_variable stopCondition;
         queueCondition.wait(lock, [this] {
             return ptrQueue.empty();
         });
-        // Calculate duration and frame rate
-        //auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(this->last_frame_ts - this->first_frame_ts).count();
-        //double frame_rate = 1 / (duration / static_cast<double>(n_ImagesToGrab));
-
-        //cout << "拍摄" << n_ImagesToGrab << "张图片用时" << duration << "秒" << endl;
-        //cout << "帧率为" << frame_rate << "Hz" << endl;
         lock.unlock();
-        //ptrQueue.push({ Mat{}, "所有图片已保存完毕！" });
 
         queueCondition.notify_all();
         persistenceThread.join();

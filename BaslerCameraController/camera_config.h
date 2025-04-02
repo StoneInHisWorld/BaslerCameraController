@@ -3,6 +3,7 @@
 #include "opencvDeclaration.h"
 #include <queue>
 
+// 为了防止错误输入，采用代码赋值的形式更改相机参数
 // 存储路径
 static const string save_root = "where you save grabbed images";
 static const string filename_perfix = ".png";
