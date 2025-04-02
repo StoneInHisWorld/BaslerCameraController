@@ -159,15 +159,8 @@
   <ItemGroup>
     <ClCompile Include="camera_config.cpp" />
     <ClCompile Include="directoryHandler.cpp" />
-    <ClCompile Include="Grab.cpp" />
     <ClCompile Include="mGrab_BaslerCamera.cpp" />
-    <ClCompile Include="multithread_ParameterizedCamera_Grab.cpp" />
-    <ClCompile Include="opencvDeclaration.cpp" />
     <ClCompile Include="opencvHandler.cpp" />
-    <ClCompile Include="ParameterizedCamera_Grab.cpp" />
-    <ClCompile Include="ParametrizeCamera_AutoFunctions.cpp" />
-    <ClCompile Include="ParametrizeCamera_Configurations.cpp" />
-    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera_config.h" />
