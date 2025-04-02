@@ -1,5 +1,6 @@
 # BaslerCameraController
-宝视纳相机控制软件，根据Pylon API给出的[官方示例和编程文档](https://docs.baslerweb.com/pylonapi/cpp/)而来，旨在简化相机的调用代码
+宝视纳相机控制软件，根据Pylon API给出的[官方示例和编程文档](https://docs.baslerweb.com/pylonapi/cpp/)而来，旨在简化相机的调用代码  
+Github上似乎不能显示图片，请克隆到本地以查看图片配置教程
 
 ## 使用之前
 1. [安装Visual Studio](https://visualstudio.microsoft.com/zh-hans/)运行本项目，使用Visual Studio Codes可能会使得项目配置过程变得异常复杂。
@@ -20,3 +21,4 @@
     1. 设置pylon包含目录`C/C++ -> General -> Additional Include Directories`，添加：**$(PYLON_DEV_DIR)\include;**![alt text](./readme_dpdc/image-6.png)
     2. 设置pylon库依赖`Linker -> General -> Additional Library Dependencies`，添加：**$(PYLON_DEV_DIR)\lib\Win32;**![alt text](./readme_dpdc/image-5.png)
 
+请移步以查看相机控制器的[使用说明](./BaslerCameraController/README.md)。如果成功调用相机，请使用`SequenceIdentifier`项目来验证结果的可用性，使用说明[在此处](./SequenceIdentifier/README.md)。

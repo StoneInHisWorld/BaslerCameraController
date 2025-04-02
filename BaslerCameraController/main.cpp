@@ -23,12 +23,15 @@ int main(int /*argc*/, char* /*argv*/[])
     {
         PylonCamera camera;
         // 相机事件注册
+        // 该相机事件处理器通过`OnImageGrabbed()`定义了相机拿到帧后执行的动作
+        // 该相机事件处理器通过`OnImagesSkipped()`定义了相机发现帧被跳过后执行的动作
         FrameEventHandler* frameEventHandler = new FrameEventHandler();
-        //camera.setTriggerMode();
+        // 进行连续拍照
+        // `CameraConfigHandler`是一个事件处理器，负责进行相机打开时相机参数的设置
         camera.grabContinuously(frameEventHandler, new CameraConfigHandler());
-        //frameEventHandler->clear();
         cout << endl << "开始保存图片……" << endl;
         auto grabbing_start = std::chrono::high_resolution_clock::now();
+        // 删除事件处理器时，事件处理器才会将所有的图片保存
         delete frameEventHandler;
         auto grabbing_end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = grabbing_end - grabbing_start;

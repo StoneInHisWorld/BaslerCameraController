@@ -4,7 +4,7 @@
 #include <queue>
 
 // 存储路径
-static const string save_root = "C:\\Users\\hpdqd\\Documents\\Tencent Files\\1195290789\\FileRecv\\研究生期间研究\\Ultra_DIMPLE\\linear_fruits\\RdURL_QRCodes\\camdis12.0cm\\test\\";
+static const string save_root = "where you save grabbed images";
 static const string filename_perfix = ".png";
 static int start_frame_index = 0;
 
@@ -55,7 +55,6 @@ public:
 
 struct FrameStamp {
     std::shared_ptr<Pylon::CGrabResultPtr> grabResult;
-    //const std::chrono::steady_clock::time_point& t;
     const int status;
 };
 
@@ -63,7 +62,6 @@ struct FrameStamp {
 class FrameEventHandler : public Pylon::CImageEventHandler {
 public:
     FrameEventHandler() {
-        //persistenceThread = std::thread(&FrameEventHandler::saveImage, this);
         persistenceThread = std::thread(&FrameEventHandler::m_saveImage, this);
     }
     ~FrameEventHandler() {
